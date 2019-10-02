@@ -1,0 +1,80 @@
+docker version
+docker info
+
+###########
+
+docker pull hello-world
+docker run hello-world
+docker images
+
+###########
+
+docker pull alpine
+docker pull ubuntu 
+
+docker pull ubuntu:14.04 # version
+docker rmi ubuntu:14.04  # remove
+
+###########
+working with containers
+
+docker run -d --name web -p 80:8080 nigelpoulton/pluralsight-docker-ci
+
+#-d -> start deamon in detached mode 
+#--name -> the name we give to this container
+#-p -> port, in this case map port the hosts port 80 to the conatainer's port 8080
+
+
+docker ps
+
+docker stop web
+docker start web
+
+docker run -it --name temp ubuntu: latest /bin bash
+
+#-it -> start it, with an attached terminal
+# to exit a conatiner without killing it  Ctrl P+Q
+
+docker stop $(docker ps -aq) #->stop all containers quietly 
+
+docker rm $(docker ps -aq) #->remove all containers quietly 
+
+docker rmi $(docker ps -aq) #->remove all images quietly 
+
+###########
+Swarms and Microservices
+
+docker swarm init --advertise-addr <IP> --listen-addr <IP>
+
+# --advertise-addr-> specify the address that you want that is accessible by others for swarm purposes
+# --listen-addr-> specify the address that you want that is accessible by others
+#port 2377 is the standard port
+
+docker swarm join-token manager # creates the command ncesseary to create a new manager node
+docker swarm join-token worker # creates the command ncesseary to create a new worker node
+
+
+docker node promote <ID> #promotes the worker with <ID> to manager 
+
+
+docker service create --name <NAME> -p 8080:8080 --replicas 5 nigelpoulton/pluralsight-docker-ci
+
+docker service ls
+
+docker service ps <NAME>
+
+docker service inspect <NAME>
+
+
+docker service scale <NAME> =7 # increases/ decreases the number of service replicas running
+
+
+docker service rm  <NAME>  #removes the service
+
+docker network create -d overlay ps-net
+
+docker network ls
+
+docker sevice inspect --pretty <NAME>
+
+docker service update --image <NAME> --update-paralelism 2 --update-delay 10s <NAME>

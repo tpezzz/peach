@@ -1,0 +1,21 @@
+verion: '2'
+
+services:
+
+	node:
+		build:
+			context: .
+			dockerfile: node.dockerfile
+		ports:
+			-"3000:3000"
+		networks:
+			-nodeapp-network
+			
+	mogodb:
+		image: mongo
+		networks: 
+			-nodeapp-network
+
+networks:
+	nodeapp-network:
+		driver: bridge

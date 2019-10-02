@@ -1,0 +1,65 @@
+###########
+
+docker pull hello-world
+docker run hello-world
+docker images
+
+########### Volumes #################
+
+
+#create the .net project
+dotnet new mvc
+
+docker pull microsoft/aspnetcore-build
+
+
+#the container below is deprecated
+docker run -it -p 8080:80 -v ${pwd}:/app -w "/app" microsoft/aspnetcore-build /bin/bash
+#-it interactive mode
+#-w current working folder
+
+
+#this is the current
+docker pull mcr.microsoft.com/dotnet/core/sdk
+
+docker run -it -p 8080:80 -v ${pwd}:/app -w "/app" mcr.microsoft.com/dotnet/core/sdk /bin/bash
+
+docker ps -a
+
+docker rm -v #removes container and volumes
+
+
+############## Building Custom Images #################
+
+docker build -t <NAME>/aspnetcore .
+
+docker build -t tpes/aspnetcore .
+
+docker run -d -p 8080:5000 -v ${pwd}:/app tpes/aspnetcore
+
+docker container inspect --format '{{.NetworkSettings.Networks.nat.IPAddress }}' 76d24d552264
+
+
+############## Communicating Between Containers #################
+
+#esta parte ficou so visionada. a ser utilizada, terá de ser revisitada no futuro
+
+############## Docker Compose #################
+
+
+docker-compose build
+
+docker-compose up
+
+docker-compose down
+
+docker-compose up -d ##the deamon starts behind the scenes
+
+docker-compose ps
+
+docker-compose logs
+
+############## Kubernetes ##############
+
+
+
