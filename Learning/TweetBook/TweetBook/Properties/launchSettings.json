@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/TweetBook",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:51257",
       "sslPort": 44379
@@ -11,6 +15,7 @@
     "TweetBook": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "https://localhost:5001/swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
